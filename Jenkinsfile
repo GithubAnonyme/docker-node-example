@@ -3,7 +3,7 @@ pipeline {
   stages {
     stage('Clone Repository') {
       steps {
-        git 'https://github.com/votre-username/votre-repo.git'
+        git 'https://github.com/GithubAnonyme/docker-node-example'
       }
     }
 
