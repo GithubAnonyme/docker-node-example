@@ -1,27 +1,27 @@
 pipeline {
   agent any
   stages {
-    stage('Test') {
+    stage('Clone Repository') {
       steps {
-        echo 'Start Test'
-        sleep 29
-        echo 'End Test'
+        git 'https://github.com/votre-username/votre-repo.git'
       }
     }
 
-    stage('Build') {
+    stage('Build Docker Image') {
       steps {
-        echo 'Start build'
-        sleep 30
-        echo 'ENd build'
+        sh 'docker build -t monapp .'
       }
     }
 
-    stage('Deploy') {
+    stage('Security Scan') {
       steps {
-        echo 'Start Deploy'
-        sleep 30
-        echo 'End Deploy'
+        sh 'trivy image monapp'
+      }
+    }
+
+    stage('Run Tests') {
+      steps {
+        sh 'npm run test'
       }
     }
 
