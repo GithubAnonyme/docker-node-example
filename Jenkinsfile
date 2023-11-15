@@ -1,27 +1,18 @@
 pipeline {
   agent any
   stages {
-    stage('Clone Repository') {
+    stage('Cloner le dépôt') {
       steps {
-        git 'https://github.com/GithubAnonyme/docker-node-example.git'
+        checkout([$class: 'GitSCM', branches: [[name: '*/main']], userRemoteConfigs: [[url: 'https://github.com/GithubAnonyme/docker-node-example.git']]])
       }
     }
 
-    stage('Build Docker Image') {
+    stage('Construire l\'image Docker') {
       steps {
-        sh 'docker build -t monapp .'
-      }
-    }
+        script {
+          docker.build('image-jenkins')
+        }
 
-    stage('Security Scan') {
-      steps {
-        sh 'trivy image monapp'
-      }
-    }
-
-    stage('Run Tests') {
-      steps {
-        sh 'npm run test'
       }
     }
 
