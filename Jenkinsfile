@@ -11,7 +11,7 @@ pipeline {
       steps {
         script {
           dir('docker-node-example') {
-            sh 'docker build -t Dockerfile .'
+            sh 'docker build -t image_test .'
           }
         }
 
