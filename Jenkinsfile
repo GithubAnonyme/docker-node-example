@@ -1,16 +1,18 @@
 pipeline {
   agent any
   stages {
-    stage('Cloner le depot') {
+    stage('Clonage du Dépôt') {
       steps {
-        checkout([$class: 'GitSCM', branches: [[name: '*/main']], userRemoteConfigs: [[url: 'https://github.com/GithubAnonyme/docker-node-example.git']]])
+        git 'https://github.com/GithubAnonyme/docker-node-example.git'
       }
     }
 
-    stage('Construire l\'image Docker') {
+    stage('Construction de l\'Image Docker') {
       steps {
         script {
-          docker.build('https://github.com/GithubAnonyme/docker-node-example/Dockfile')
+          dir('docker-node-example') {
+            sh 'docker build -t Dockerfile .'
+          }
         }
 
       }
