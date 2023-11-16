@@ -1,9 +1,9 @@
 pipeline {
   agent any
   stages {
-    stage('Clonage du Dépôt') {
+    stage('Clonage du Depot') {
       steps {
-        git 'https://github.com/GithubAnonyme/docker-node-example.git'
+        git(branch: 'main', url: 'https://github.com/GithubAnonyme/docker-node-example.git')
       }
     }
 
